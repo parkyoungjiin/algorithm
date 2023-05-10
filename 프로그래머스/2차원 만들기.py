@@ -10,19 +10,26 @@ num_list가 [1, 2, 3, 4, 5, 6, 7, 8] 로 길이가 8이고 n이 2이므로 num_l
 """
 
 def solution(num_list, n):
-        # n개씩 append를 해주기
-        # 1. n개까지만 요소 꺼내기
-    cnt = 0
-    temp = []
-    answer =[ ]
-    for i in num_list:
-        temp.append(i)
-        cnt += 1
-        if cnt == 2:
-            answer.append(temp)
-            temp = []
-            cnt = 0
-    return print(answer)
+   cnt = 0 
+   answer = []
+   temp = []
+   # 2개씩 임시배열에 넣기
+   for i in num_list:
+      temp.append(i)
+      cnt += 1
+      if cnt == n:
+         answer.append(temp)
+         temp = []
+         cnt = 0
+   return print(answer)
 
     
 solution([1,2,3,4],2)
+
+# 다른 풀이(len, range 이용)
+def solution2(num_list, n):
+   for i in range(0, len(num_list), n):
+      print(i)
+
+
+solution2([1,2,3,4],2)

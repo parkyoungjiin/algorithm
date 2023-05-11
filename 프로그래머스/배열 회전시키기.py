@@ -19,7 +19,7 @@ def solution(numbers, direction):
         for i in numbers[1:]:
             answer.append(i)
         answer.append(numbers[0])
-    return answer
+    return print(answer)
 
 solution([1,2,3],'right') 
 

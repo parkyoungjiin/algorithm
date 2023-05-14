@@ -5,6 +5,9 @@ solution 함수를 완성해주세요.
 
 [1,2,3] , right => [3,1,2]
 """
+from collections import deque
+
+
 def solution(numbers, direction):
     answer = []
     if direction == 'right':
@@ -41,3 +44,15 @@ arr = [1,2,3,4,4]
 for i in arr[0:-1]:
     print('arr의 i값', i)
 """
+def solution2(numbers, direction):
+    # deque 자료구조로 변환.
+    numbers = deque(numbers)
+    # 오른쪽일 경우 양수
+    if direction == 'right':
+        numbers.rotate(1)
+    # 왼쪽일 경우 음수
+    else:
+        numbers.rotate(-1)
+    # deque를 다시 list로 변환하여 return
+    return list(numbers)
+    

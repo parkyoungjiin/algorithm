@@ -9,7 +9,7 @@ def solution(n):
         if n % i == 0:
             answer.append(i)
     
-    return print(answer)
+    return answer
 
 
 solution(29)

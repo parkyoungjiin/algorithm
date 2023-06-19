@@ -10,6 +10,7 @@ def solution(numbers):
     # replace를 사용하여 키를 값으로 변경
     for k, v in number_dict.items():
         numbers = numbers.replace(k, str(v))
-    return print(int(numbers))
+    return int(numbers)
+
 
 solution("onetwothreefourfivesixseveneightnine")

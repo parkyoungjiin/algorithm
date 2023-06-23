@@ -38,3 +38,7 @@ def solution(keyinput, board):
 
 solution(["left", "right", "up", "right", "right"], [11,11])
 solution(["down", "down", "down", "down", "down"],[7,9])
+
+
+testArr = 123
+print('test:',str(testArr)[:-1])

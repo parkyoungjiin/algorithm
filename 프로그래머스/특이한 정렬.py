@@ -10,16 +10,18 @@ numlist의 원소를 n으로부터 가까운 순서대로 정렬한 배열을 re
 def solution(numlist, n):
     # n과의 거리를 계산하여 별도 배열에 추가
     answer = []
-    # list를 내림차순 정렬
-    # numlist.sort(reverse=True)
+    result = []
     for i in numlist:
         answer.append(i-n)
-    print('answer:',answer)
-    result = []
-    for i in sorted(answer[:], key=lambda x:[abs(x),-x]):
-        # 절대값 기준으로 정렬 후 절대값이 동일하다면 음수를 기준으로 내림차순 정렬함.
+    print(answer)
+
+    for i in sorted(answer[:], key=lambda x:[abs(x), -x]):
         result.append(numlist[answer.index(i)])
-    return print(result)
+    return result
 
 solution([1, 2, 3, 4, 5, 6], 4)
 solution([10000,20,36,47,40,6,10,7000],30)
+
+
+test_lambda = lambda x:x+1
+print(test_lambda(3))

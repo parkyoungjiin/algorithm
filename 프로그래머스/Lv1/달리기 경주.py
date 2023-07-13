@@ -12,28 +12,43 @@
 
 """
 def solution(players, callings):
-    result = {player : i+1 for i, player in enumerate(players)}
-    print(result)
+    p_idx_result = {player : i for i, player in enumerate(players)} # 선수 : 등수
+    idx_p_result = {i : player for i, player in enumerate(players)} # 등수 : 선수
+
+    # 결과 도출 시 선수명을 출력해야 함.
     for i in callings:
-        # 호명되면 등수 - 1
-        index = result[i]
-        result[i] -= 1
-        result[players[index-1]] += 1
+    #     # 호명되면 등수 -1
+    #     # 호명된 선수 등수와 이름 + 호명된 선수 앞 선수의 등수와 이름 저장
+    #     cur_idx = p_idx_result[i]
+    #     cur_player = i
+        
+    #     # 호명된 선수의 앞 선수 등수와 이름
+    #     pre_idx = cur_idx - 1
+    #     pre_player = idx_p_result[pre_idx]
+
+    #     # 선수의 등수를 바꿔주는 작업
+    #     p_idx_result[cur_player] = pre_idx
+    #     p_idx_result[pre_player] = cur_idx
+
+    #     # 등수 : 선수에서 선수명을 변경함.
+    #     idx_p_result[pre_idx] = cur_player
+    #     idx_p_result[cur_idx] = pre_player
+
+
+    # return list(idx_p_result.values())
+
+     pla_dic = {key: i for i, key in enumerate(players)} # 선수 : 등수
+    print(pla_dic)
+    for p in callings:
+        index = pla_dic[p]
+        pla_dic[p] -= 1
+        pla_dic[players[index-1]] += 1
         players[index-1], players[index] = players[index], players[index-1]
-        # print(result)
-        # 하나 앞 선수의 등수를 +1
-        # print(result[index-1])
-    print(result)
+
+    return print(players)
 
         
 
-    # for i in callings:
-    #   for key, value in dict.items():
-    #     if i == value:
-    #         index = key
-    #     print(index)
-
-    # print(list(dict.values()))
     # for i in callings:
     #     if i in players:
     #         index = players.index(i)

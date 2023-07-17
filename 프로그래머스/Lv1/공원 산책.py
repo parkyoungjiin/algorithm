@@ -14,10 +14,44 @@
 
 """
 
-def solution(park, routes):
+def solution(park, routes): # 공원, 이동 명령어 -> [세로 좌표, 가로 좌표]
     answer = []
-    for i in park:
-        print(i)
+    row, col = len(park), len(park[0])
+    # 이동 명령어 선언 (E W S N, 동서남북)
+    op = {'E' : (0,1), 'W' : (0,-1), 'S' : (1,0), 'N':(-1,0)}
+    x, y = 0, 0
+    # 시작점 찾기
+    for i in range(len(park)):
+        for j in range(len(park[i])):
+            if park[i][j] == 'S':
+                x, y = i, j
+    # print(x, y)
 
-    return answer
+    # routes에서 op, n 구분하기
+    for route in routes:
+        route_list = route.split()
+        print("route_list:", route_list)
+        dx, dy = op[route[0]]
+        count = int(route_list[1])
+        
+        xx, yy = x, y
+        canmove = True
+
+        for reply in range(count):
+            mx, my = xx + dx, yy + dy
+            # 장애물 있거나, 범위를 벗어나면 이동 못함.
+            if 0<= mx <=row-1 and 0<=my<=col-1 and park[mx][my] != 'X':
+                canmove = True
+                # 이동 성공 시 mx값, my값을 xx, yy에 저장
+                xx,yy = mx, my
+            else:
+                canmove = False
+                break
+        if canmove:
+            x, y = mx, my
+
+    return print([x,y])
+
+
 solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])
+solution(["OSO","OOO","OXX","OOO"], ["E 2","S 2","W 1"])

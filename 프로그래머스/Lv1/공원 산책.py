@@ -30,7 +30,6 @@ def solution(park, routes): # 공원, 이동 명령어 -> [세로 좌표, 가로
     # routes에서 op, n 구분하기
     for route in routes:
         route_list = route.split()
-        print("route_list:", route_list)
         dx, dy = op[route[0]]
         count = int(route_list[1])
         
@@ -50,7 +49,7 @@ def solution(park, routes): # 공원, 이동 명령어 -> [세로 좌표, 가로
         if canmove:
             x, y = mx, my
 
-    return print([x,y])
+    return [x,y]
 
 
 solution(["SOO","OOO","OOO"], ["E 2","S 2","W 1"])

@@ -21,7 +21,7 @@
 #     return answer
 
 
-# -----다른 풀이--------
+# -----다른 풀이 min을 사용한 간결한 풀이--------
 
 def solution(k, score):
     temp = []

@@ -1,30 +1,40 @@
 def solution(X, Y):
-    answer  = []
-    xDict   = dict()
-    yDict   = dict()
-    
-    # xDict 생성
-    for x in X:
-        xDict[x] = xDict.get(x,0)+1
-        
-    # yDict 생성
-    for y in Y:
-        yDict[y] = yDict.get(y,0)+1
-    
-    # xDict의 key를 기준으로 탐색해서, 짝꿍이 있다면, xDict와yDict에서 -1 해주고 answer에 추가
-    for k,v in xDict.items():
-        if k in yDict.keys():
-            while yDict[k]>0 and xDict[k]>0:
-                answer.append(k)
-                yDict[k]=yDict.get(k)-1
-                xDict[k]=xDict.get(k)-1
-    
-    # 아무것도 없는 경우 return -1        
-    if(len(answer)==0):                 return "-1"   
+    answer = ''
+    x_dict = {}
+    y_dict = {}
 
-    # answer에 0들밖에 없을 경우 return 0
-    if(answer.count('0')==len(answer)): return "0"
+    for x_i, y_i in X, Y:
+        # 존재하지 않을 경우 1을 넣어줌.
+        if x_dict.get(x_i) == None:
+            x_dict[x_i] = 1
+        else:
+            # 존재할 경우 증감처리
+            x_dict[x_i] += 1
 
-    answer.sort(reverse=True)
+
+        if y_dict.get(y_i) == None:
+            y_dict[y_i] = 1
+        else:
+            # 존재할 경우 증감처리
+            y_dict[y_i] += 1
+
+
+    for i in x_dict.keys():
+        # key가 y_dict에 존재할 경우
+        if i in y_dict and i != '0':
+            answer += str(str(i) * min(x_dict[i], y_dict[i]))
+        elif i in y_dict and i == '0':
+            answer += str(i)
+        # 내림차순 정렬하기.
+        answer = ''.join(sorted(list(answer),reverse=True))
+
+    # key가 y_dict에 존재하지 않을 경우 -1
+    if answer == '':
+        answer = '-1'
     
-    return ''.join(answer)
+    return print(answer)
+
+solution("100","2345")
+solution("100","203045")
+solution("100","123450")
+solution("12321","42531")

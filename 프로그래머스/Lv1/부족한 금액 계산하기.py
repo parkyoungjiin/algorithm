@@ -1,10 +1,16 @@
 def solution(price, money, count):
-
-    for i in range(1,count+1):
-        money -= price*i
-    if money < 0:
-        money = abs(money)
+    answer = 0
+    for i in range(1, count+1):
+        answer += i * price
+    answer = answer - money
+    # 부족할 때 양수
+    if answer >= 0:
+        return answer
     else:
-        money = 0 
+        return 0
+    
 
-    return money
+
+    
+
+solution(3, 20, 4)

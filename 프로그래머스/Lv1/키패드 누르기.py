@@ -9,10 +9,11 @@ def solution(numbers, hand):
     L_initial_location, R_initial_location = keypad_location['*'], keypad_location['#']
 
     for i in numbers:
+        # 1,4,7 인 경우
         if i in Left_location:
             answer += 'L'
             L_initial_location = keypad_location[i]
-
+        # 3,6,9 인 경우
         elif i in Right_location:
             answer += 'R'
             R_initial_location = keypad_location[i]

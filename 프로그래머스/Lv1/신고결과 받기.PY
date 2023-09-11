@@ -1,28 +1,19 @@
-
-from collections import defaultdict
-
-def solution(id_list, report,k):
-    answer = []
-    # 중복 신고 제거
-    report = list(set(report))
-    # user별 신고한 id 저장
-    user = defaultdict(set)
-    # user별 신고당한 횟수 저장
-    cnt = defaultdict(int)
-	
-    for r in report:
-        # report의 첫번째 값은 신고자id, 두번째 값은 신고당한 id
-        a,b = r.split()
-        # 신고자가 신고한 id 추가
-        user[a].add(b)
-        # 신고당한 id의 신고 횟수 추가
-        cnt[b] += 1
-    
-    for i in id_list:
-        result = 0
-        # user가 신고한 id가 k번 이상 신고 당했으면, 받을 메일 추가
-        for u in user[i]:
-            if cnt[u]>=k:
-                result +=1
-        answer.append(result)
+def solution(id_list, reports, k):
+    stop = []
+    answer = [0] * len(id_list)
+    dicReports = {id: [] for id in id_list}
+    print(reports)
+    for i in set(reports):
+        report = i.split(' ')
+        stop.append(report[1])
+        dicReports[report[0]].append(report[1])
+    stop = set([i for i in stop if stop.count(i) >= k])
+    for key, value in dicReports.items():
+        # print(value)
+        for s in stop:
+            if s in value:
+                answer[id_list.index(key)] += 1
     return answer
+
+
+solution(["muzi", "frodo", "apeach", "neo"], ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"], 2)

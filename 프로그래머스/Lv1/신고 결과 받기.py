@@ -1,5 +1,7 @@
 def solution(id_list, report, k):
-    answer = []
+    answer = [0] * len(id_list)
+    print(answer)
+    # print('answer:', answer)
     temp = []
     # 신고 당한 횟수
     declaration_cnt = {i:0 for i in id_list}
@@ -18,20 +20,13 @@ def solution(id_list, report, k):
         if cnt >= k:
             # reported_id가 declaration_list(신고한 아이디)에 존재하는 경우 메일 발송.
             temp.append(reported_id)
-        
-        # print(declaration_list[reported_id].count(temp))
-
-
-        
-        # print(reported_id)
-        #    print(declaration_list)
-               
-
-        
+    # 
+    for key, value in declaration_list.items():
+        for i in temp:
+            if i in value:
+                answer[id_list.index(key)] += 1
     
     
-    # print(report_id)    
-    # print(reported_id)    
     return answer
 
 solution(["muzi", "frodo", "apeach", "neo"], ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"], 2) # 2,1,1,0

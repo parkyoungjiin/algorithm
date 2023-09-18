@@ -18,6 +18,6 @@ def solution(nums):
         if chk:
             answer += 1
 
-    return print(answer)
+    return answer
 
 solution([1,2,3,4])

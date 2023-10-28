@@ -5,24 +5,21 @@
 """
 def solution(s):
     answer = 0
-    # 공백을 기준으로 분리하여 배열에 저장.
+    # 공백 기준 문자열 분리
     s = s.split()
-    answer_arr = []
-    for i in s:
-        # Z가 아닐경우 answer에 더하기.
-        if i != 'Z':
-            # 직전의 숫자를 빼기 위해 i값을 배열에 넣음
-            answer_arr.append(i)
-            answer += int(i)
-        # Z 일 경우 직전의 숫자를 뺀다.
+    # enumerate를 사용하여 인덱스로 접근한 뒤 answer를 계산.
+    for i, val in enumerate(s):
+        if val == 'Z':
+            answer -= int(s[i-1])
         else:
-            print('Z 등장')
-            # 배열에 들어간 값 중에 마지막 번지에 있는 값을 빼준다.
-            answer -= int(answer_arr[-1])
-
+            val = int(val)
+            answer += val
             
+    
     return answer
-
+    
+    
+    
 solution("1 2 Z 3")
 solution("10 20 30 40")
 solution("-1 -2 -3 Z")

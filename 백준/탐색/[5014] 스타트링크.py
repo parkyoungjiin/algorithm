@@ -9,7 +9,7 @@ def bfs(start):
     
     queue = deque()
     queue.append(start)
-    # visited[start] = 1        
+    # visited[start] = 1
     while queue:
         q = queue.popleft()
         # print(q)
@@ -17,12 +17,13 @@ def bfs(start):
             # print("종료")
             return visited[q]
         else:
-            for i in (q+U, q-D):
+            for i in (q+U, q-D): # U, D 0, 3
                 if (0<i<=F) and visited[i] == 0:
                     visited[i] = visited[q] + 1
                     queue.append(i)
-
+# visited[1] = 1 -> visited[3] =2
     return "use the stairs"
+
 
 
 

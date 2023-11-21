@@ -17,6 +17,7 @@ for i in range(len(test_list)):
     # 문자열 포맷팅 -> "%자료형" % 값 
     # [i][0] 값은 정수형으로 [i][2] 값은 문자열로 나타내라는 뜻.
     print("%d %s" % (test_list[i][0], test_list[i][2]))
+    # print("{0}".format(test_list[i][0]))
 
 
 

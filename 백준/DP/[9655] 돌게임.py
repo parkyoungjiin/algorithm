@@ -3,6 +3,6 @@ input = sys.stdin.readline
 n = int(input())
 
 if n % 2 == 0:
-    print("CK")
+    print("CY")
 else:
     print("SK")

@@ -20,6 +20,6 @@ for i in range(n-2):
             end -= 1
         else:
             break
-print(result)
+print(*result)
 
     

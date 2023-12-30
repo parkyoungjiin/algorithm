@@ -31,12 +31,15 @@ def bfs(v):
     global visited, q
     # q에 요소가 있을 때 까지 반복.
     while q:
+        # 맨 처음 요소를 꺼내온다.
         cur = q.pop(0)
         print(cur, end = ' ')
-        # 방문하지 않은 경우 v를 큐에 삽입한다.
+        
         for next in range(1, N+1):
+            # 방문하지 않은 경우 큐에 삽입한다.
             if not visited[v] and graph[cur][next]:
-                q.append(ㅜㄷㅌㅅ                visited[v] = True
+                q.append(next)
+                visited[v] = True
 
 
 

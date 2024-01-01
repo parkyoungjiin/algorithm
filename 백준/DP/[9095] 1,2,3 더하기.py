@@ -1,17 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-d=[0]*11
-d[1]=1
-d[2]=2
-d[3]=4
+t = int(input())
+dp = [0] * 11
+dp[1] = 1
+dp[2] = 2
+dp[3] = 4
+# 점화식
+# dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
 
-for i in range(4,11):
-    d[i]=d[i-3]+d[i-2]+d[i-1]
+for i in range(4, 11):
+    dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+    
+for _ in range(t):
+    n = int(input())
+    print(dp[n])
 
-n = int(input())
-for _ in range(n):
-    m = int(input())
-    print(d[m])
-
+    
+    
 

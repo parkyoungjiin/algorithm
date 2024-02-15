@@ -1,52 +1,39 @@
 from collections import deque
 import sys
-M, N, H = map(int, input().split())
+input = sys.stdin.readline
+
+m, n, h = map(int, input().split())
 tomato = []
-# 3차원 배열로 생성(토마토)
-for i in range(H):
-    tmp = []
-    for i in range(N):
-        tmp.append(list(map(int,input().split())))
-    tomato.append(tmp)
-# 6방향 설정(상하좌우위아래)
-dx = [-1,1,0,0,0,0]
-dy = [0,0,-1,1,0,0]
-dz = [0,0,0,0,1,-1]
+for _ in range(h):
+    tomato.append([list(map(int, input().split())) for _ in range(n)])
 
-# 익은 토마토 위치 저장
-queue = deque()
-for z in range(H):
-        for i in range(N):
-            for j in range(M):
-                 if tomato[z][i][j] == 1:
-                    queue.append((z,i,j))
+# 좌표 (6방향)
+dr = [1, 0, -1, 0, 0, 0]
+dc = [0, 1, 0, -1, 0, 0]
+# 위, 아래에 대한 좌표
+dx = [0, 0, 0, 0, 1, -1]
 
-# bfs 처리
-while queue:
-    z,i,j = queue.popleft()
-    for idx in range(6):
-        nz = z + dz[idx]
-        nx = i + dx[idx]
-        ny = j + dy[idx]
-        if 0<=nz<H and 0<=nx<N and 0<=ny<M:
-            if tomato[nz][nx][ny] == 0:
-                    queue.append((nz,nx,ny))
-                    tomato[nz][nx][ny] = tomato[z][i][j] + 1
-# print(tomato)
-# 일자 출력하기
-day = 0
-for i in tomato:
-     for j in i:
-          for k in j:
-               # 0이 하나라도 있으면 익지 못하기에 -1 출력
-               if k == 0:
-                    print(-1)
-                    exit()
-          day = max(day, max(j))
-        #   print(day)
-print(day -1 )
-                
-
-
-
+q = deque()
+# 익은 토마토 위치 확인
+for x in range(h):
+    for i in range(n):
+        for j in range(m):
+            if tomato[x][i][j] == 1:
+                q.append([x,i,j])
+print(q)
+while q:
+    x,r,c = q.popleft()
     
+    for i in range(6):
+        nx = x + dx[i]
+        nr = r + dr[i]
+        nc = c + dc[i]
+
+        if 0 <= nx < h and 0 <= nr < n and 0 <= nc < m:
+            if tomato[nx][nr][nc] == 0:
+                q.append([nx,nr,nc])
+                tomato[nx][nr][nc] = tomato[x][r][c] + 1
+
+
+
+

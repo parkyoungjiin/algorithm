@@ -1,0 +1,8 @@
+--  몇 시에 입양이 가장 활발하게 일어나는지 알아보려 합니다.
+-- 09:00 ~ 19:59
+-- 시간대 별 입양 몇 건 조회
+SELECT HOUR(DATETIME) AS HOUR, COUNT(*) AS COUNT
+FROM ANIMAL_OUTS
+WHERE HOUR(DATETIME) BETWEEN '09' AND "19"
+GROUP BY HOUR(DATETIME)
+ORDER BY hour

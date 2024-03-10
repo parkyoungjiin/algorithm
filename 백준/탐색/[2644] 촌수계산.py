@@ -1,35 +1,36 @@
-# 사람 수
+import sys
+input = sys.stdin.readline
+
 n = int(input())
-
-# 계산해야하는 촌수
-start, end= map(int, input().split())
-
-family = [[] for i in range(n+1)]
-visited = [False] * (n+1)
-cnt = [0] * (n+1) # 촌수 계산 
-# 관계 개수
+a, b = map(int, input().split())
 m = int(input())
-# family (관계) 그래프 내용 추가
+
+array = [[] for _ in range(n+1)]
+
 for _ in range(m):
-    parent, child = map(int,input().split())
-    family[parent].append(child)
-    family[child].append(parent)
-# print(family)
+    x, y = map(int,input().split())
+    array[x].append(y)
+    array[y].append(x)
 
-# dfs 탐색
-def dfs(s):
-    # 방문하기
-    visited[s] = True
-    for i in family[s]:
-        if not visited[i]:
-            cnt[i] = cnt[s] + 1
-            dfs(i)
-    # print(cnt)
+visited=[False for _ in range(n+1)]
+# flag -> 관계가 있는 지 여부를 판단하는 변수
+flag = False
 
-dfs(start)
- 
-if cnt[end] > 0:
-    print(cnt[end])
-else:
-    print(-1)
+
+def dfs(x, count):
+    global flag
+    visited[x] = True
+    # 자식을 찾은 경우
+    if x == b:
+        flag = True
+        print(count)
     
+    # 못찾은 경우(재귀)
+    for val in array[x]:
+        if visited[val] == False:
+            dfs(val, count+1)
+
+dfs(a, 0)
+if flag == False:
+    print(-1)
+

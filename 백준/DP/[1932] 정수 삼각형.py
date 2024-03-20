@@ -1,20 +1,25 @@
 import sys
 input = sys.stdin.readline
-
+triangle=[]
 n = int(input())
-circle = []
+
 for _ in range(n):
-    circle.append(list(map(int,input().split())))
+    triangle.append(list(map(int,input().split())))
 
-# 점화식
-# 행
+
 for i in range(1, n):
-    for j in range(0,i+1):
+    # j = 열(층 안에서 인덱스)
+    for j in range(i+1):
+         # 시작, 끝은 max 연산 X
         if j == 0:
-            circle[i][0] += circle[i-1][0]
+            triangle[i][j] += triangle[i-1][j]
         elif j == i:
-            circle[i][j] += circle[i-1][j-1]
+            triangle[i][j] += triangle[i-1][j-1]
+        # 가운데 요소들 연산할 때는 겹치기에 Max로 큰 값을 저장. 
         else:
-            circle[i][j] += max(circle[i-1][j-1], circle[i-1][j])
+            triangle[i][j] += max(triangle[i-1][j-1], triangle[i-1][j])
+print(triangle)
+print(max(max(triangle)))
 
-print(max(circle[n-1]))
+
+

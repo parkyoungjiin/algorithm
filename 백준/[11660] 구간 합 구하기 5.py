@@ -1,20 +1,25 @@
 import sys
-n, m = map(int, input().split())
+input = sys.stdin.readline
+
+n, m = map(int,input().split())
+# 입력값 graph
 graph = []
-for _ in range(n):
+
+for i in range(n):
     graph.append(list(map(int,input().split())))
-# dp
-dp=[[0] * (n+1) for _ in range(n+1)]
 
-for i in range(1, n+1):
-    for j in range(1, n+1):
-        dp[i][j] = dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1] + graph[i-1][j-1]
-print(dp)
+# 구간합 저장 배열
+d = [[0] * (n+1) for _ in range(n+1)]
 
+# 구간합 저장
+for i in range(1,n+1):
+    for j in range(1,n+1):
+        d[i][j] = d[i][j-1] + d[i-1][j] -d[i-1][j-1] + graph[i-1][j-1]
+
+# 한 번에 출력
 for _ in range(m):
-    x1, y1, x2, y2 = map(int,input().split())
-    result = dp[x2][y2] - dp[x1-1][y2] - dp[x2][y1-1] + dp[x1-1][y1-1]
+    x1, y1, x2, y2 = map(int, input().split())
+    result = d[x2][y2] - d[x2][y1-1] - d[x1-1][y2] + d[x1-1][y1-1]
     print(result)
-    
 
-    
+

@@ -1,38 +1,37 @@
 import sys
-input = sys.stdin.readline
 sys.setrecursionlimit(10**9)
 
-pre_order_arr = []
+preorder_arr = []
 
-# 입력 될때 동안 전위 그래프 완성
+# 엔터 들어올 때까지 입력
 while True:
     try:
-        pre_order_arr.append(int(input()))
+        preorder_arr.append(int(sys.stdin.readline().rstrip()))
     except:
         break
 
-# 후위
-def post_order(arr):
-    if len(arr) == 0:
+def postorder(root_idx, end_idx):
+    if root_idx > end_idx:
         return
     
-    # 왼쪽 서브트리, 오른쪽 서브트리
-    tempL, tempR = [], []
+    global preorder_arr
+    
+    # 만약 root보다 큰 값 없는 경우 전부 왼쪽 서브트리로 취급
+    right_start = end_idx + 1
 
-    root = arr[0]  
-    for i in range(1, len(arr)):
-        # 루트 값보다 큰 값인 경우(오른쪽 서브트리로 분류하고 종료)
-        if arr[i] > root:
-            tempL = arr[1:i]
-            tempR = arr[i:]
+    for i in range(root_idx + 1, end_idx + 1):
+        if preorder_arr[root_idx] < preorder_arr[i]:
+            right_start = i
             break
+    
+    # root 다음부터 왼쪽 서브트리 탐색
+    postorder(root_idx + 1, right_start - 1)
 
-    else:
-        tempL = arr[1:]
-    # 후위니까 왼->오->루트 순으로 출력
-    post_order(tempL)
-    post_order(tempR)
-    print(root)
+    # 왼쪽 서브트리 탐색 끝나면 오른쪽 서브트리 탐색
+    postorder(right_start, end_idx)
 
-post_order(pre_order_arr)
+    # 왼쪽, 오른쪽 서브트리 탐색 끝나면 root 출력
+    print(preorder_arr[root_idx])
 
+
+postorder(0, len(preorder_arr) - 1)

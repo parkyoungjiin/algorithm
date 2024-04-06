@@ -1,43 +1,32 @@
 import sys
-from collections import deque
-import heapq
-input = sys.stdin.readline
-# n 도시 개수
-n = int(input())
-# m 버스 개수
-m = int(input())
+import heapq 
 
-# bus_cost = {}
-bus_route = [[] for _ in range(n+1)]
+input = sys.stdin.readline
+
+n = int(input())
+m = int(input())
+graph = [[] for _ in range(n+1)]
 
 for _ in range(m):
-    start, end, cost= map(int,input().split())
-    # bus_cost[(start,end)] = cost
-    bus_route[start].append((end,cost))
-
-start_city, end_city = map(int, input().split())
-
-def dijkstra(bus_route, start):
-    distances = [int(1e9)] * (n+1)
-    distances[start] = 0
-
-    queue = []
-    heapq.heappush(queue, [distances[start], start])
-
-    while queue:
-        dist, node = heapq.heappop(queue) # 탐색할 노드, 거리
+    a, b, cost = map(int, input().split())
+    graph[a].append([b, cost])
         
-        if distances[node] < dist:
+start, end = map(int, input().split())
+costs = [1e9 for _ in range(n+1)]
+heap = []
+costs[start] = 0
+heapq.heappush(heap, [0, start])
+    
+while heap:
+    cur_cost, cur_v = heapq.heappop(heap)
+    if costs[cur_v] < cur_cost:
+        continue
+    for next_v, next_cost in graph[cur_v]:
+        sum_cost = cur_cost + next_cost
+        if sum_cost >= costs[next_v]:
             continue
-            
-        for next_node, next_dist in bus_route[node]:
-            distance = dist + next_dist
-            if distance < distances[next_node]:
-                distances[next_node] = distance
-                heapq.heappush(queue, [distance, next_node])
-
-    return distances
-
-dis_start = dijkstra(bus_route, start_city)
-print(dis_start)
-print(dis_start[end_city])
+        
+        costs[next_v] = sum_cost
+        heapq.heappush(heap, [sum_cost, next_v])
+        
+print(costs[end])

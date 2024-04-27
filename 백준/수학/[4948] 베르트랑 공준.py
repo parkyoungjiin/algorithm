@@ -1,32 +1,25 @@
-import sys
-input = sys.stdin.readline
+num = []
 
+for i in range(2, 246913):
+    cnt = 0
 
-max_val = 123456 * 2
-isPrime= [True for _ in range(max_val+1)] # 소수 = True
+    for p in range(2, int(i**0.5)+1):
+        if i % p == 0:
+            cnt += 1
+            break
 
-for i in range(2, int(max_val**0.5)+1):
-    # 소수인 경우 소수
-    if isPrime[i]:
-        #소수의 배수를 False
-        for j in range(i*i, max_val+1, i):
-            isPrime[j] = False
-
+    if cnt == 0:
+        num.append(i)
 
 while True:
     n = int(input())
+    res = 0
 
     if n == 0:
         break
 
-    else:
-        cnt = 0
-        for i in range(n+1, (n * 2)+1):
-            if isPrime[i]:
-                cnt += 1
-            
-        if n == 1:
-            print(1)
-        else:
-            print(cnt)
+    for i in num:
+        if n < i <= 2*n:  # if i > n and i <=2*n과 같음
+            res += 1
 
+    print(res)

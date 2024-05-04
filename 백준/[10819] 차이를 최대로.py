@@ -1,18 +1,23 @@
-import sys
-from itertools import permutations
-
 n = int(input())
-
-arr = list(map(int, input().split()))
-# 순열
-t = list(permutations(arr, n))
-
+in_list = list(map(int ,input().split()))
+visited = [False]*n
 answer = 0
-for i in t:
-    temp = 0
-    for j in range(n-1): # [n-2] - [n-1] 공식이 있기에, n-1로 설정.
-        temp += abs(i[j]-i[j+1])
-    
-    answer = max(answer, temp)
+def sol(li):
+  global answer
+  if len(li) == n:
+    total = 0
+    for i in range(n-1):
+      total += abs(li[i]- li[i+1])
+    answer = max(answer, total)
+    return
 
+  for i in range(n):
+    if not visited[i]:
+      visited[i] = True
+      li.append(in_list[i])
+      sol(li)
+      visited[i] = False
+      li.pop()
+
+sol([])
 print(answer)

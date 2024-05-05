@@ -1,23 +1,17 @@
+import sys
+from itertools import permutations
+
+# 순열만들기
+input = sys.stdin.readline
 n = int(input())
-in_list = list(map(int ,input().split()))
-visited = [False]*n
+arr = list(map(int, input().split()))
+p = list(permutations(arr, n))
+
 answer = 0
-def sol(li):
-  global answer
-  if len(li) == n:
-    total = 0
-    for i in range(n-1):
-      total += abs(li[i]- li[i+1])
-    answer = max(answer, total)
-    return
-
-  for i in range(n):
-    if not visited[i]:
-      visited[i] = True
-      li.append(in_list[i])
-      sol(li)
-      visited[i] = False
-      li.pop()
-
-sol([])
-print(answer)
+for i in p:
+    s = 0
+# 반복문으로 튜플을 꺼내 각 순열마다 차이의 합(s)을 구하고 최대값 저장.
+    for j in range(n-1):
+        s += abs(i[j] - i[j+1])
+# 모든 경우 원소들끼리의 차이의 절댓값의 합을 max함수를 이용하여 갱신
+    answer = max(answer, s)

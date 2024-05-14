@@ -4,33 +4,24 @@ input = sys.stdin.readline
 l = int(input())
 
 for _ in range(l):
-    password = list(input())
+    password = list(input().strip())
     cursor = 0
     answer = []
 
     for i in password:
-        if i == '>' and len(answer) !=0 :
-            if len(answer) < cursor + 1:
-                continue
-
+        if i == '>' and cursor < len(answer):
             cursor += 1
-        elif i == '<' and len(answer) !=0 :
-            if cursor == 0:
-                continue
 
+        elif i == '<' and cursor > 0 :
             cursor -= 1
-        elif i == '-':
+
+        elif i == '-' and cursor > 0:
             answer.pop(cursor-1)
-            if cursor != 0:
-                cursor -= 1
+            cursor -= 1
                 
         elif  i != '>' and i != '<' and i != '-':
-            if cursor != 0:
-                answer.insert(cursor, i)
-                cursor += 1
-            else:
-                cursor += 1
-                answer.append(i)
+            answer.insert(cursor, i)
+            cursor += 1
 
     for i in answer:
         print(i, end='')

@@ -1,16 +1,24 @@
 n = int(input())
-cnt = 0
+answer = 0
 
-# 첫 번째 단어를 입력받아 처리
-first_word = ''.join(sorted(list(input())))
+first_word = list(input()) # 첫 단어
 
-# 나머지 단어들을 입력받고 비교
-for i in range(1, n):
-    word = ''.join(sorted(list(input())))
-    if first_word == word:
-        cnt += 1
+for _ in range(n-1):
+    # print(first_word[:])
+    target = first_word[:] # 복사
+    compare_word = input()
+    # print(compare_word)
+    cnt = 0
 
-print(cnt)
+    for w in compare_word:
+        if w in target:
+            target.remove(w)
+        else:
+            cnt+=1
+    if cnt < 2 and len(target) < 2:
+        answer += 1
+print(answer)
+
 
 
 

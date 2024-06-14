@@ -1,42 +1,16 @@
 import sys
-from collections import deque
-input = sys.stdin.readline
 
 n, w, l = map(int, input().split())
-
-truck = deque(list(map(int,input().split())))
-bridge = dict()
-answer = 0
-progress = 1
-while truck:
-    answer += 1
-    # 트럭이 다리 길이를 넘은 경우 bridge에서 제거.
-    if len(bridge) != 0:
-        for truck_num, sec in bridge.items():
-            if sec > w:
-                bridge.pop(truck_num)
-                break
-    
-    if len(bridge) == 0 or sum(bridge) + truck[0] <= l:
-        t = truck.popleft()
-    # w += 1
-    # 트럭을 다리에 추가
-    if sum(bridge.keys()) + t <= l and len(bridge) <= w:
-        bridge[t] = 1
-        # 트럭 초 증가
-        if len(bridge) != 0:
-            for truck_num, sec in bridge.items():
-                bridge[truck_num] = sec + 1
-        continue
-
-    # 트럭 초 증가
-    if len(bridge) != 0:
-        for truck_num, sec in bridge.items():
-            bridge[truck_num] = sec + 1
-
-    
-
-print(answer)
-    # w는 다리 길이로 1로 초기화
-    # if progress == w:
-    #     progress = 1
+q = list(map(int, input().split()))
+ 
+b = [0] * w
+time = 0
+while b: # 마지막 트럭이 들어오고 그 트럭이 빠져나갈 때 까지
+	time += 1
+	b.pop(0) # 다리 첫번째 요소 pop
+	if q: # 트럭이 존재할 때만 다리에 append
+		if sum(b) + q[0] <= l:
+			b.append(q.pop(0))
+		else:
+			b.append(0) # 트럭이 있지만 다리에 올리지 못할 경우 다리 공간 채워줘야 함
+print(time)

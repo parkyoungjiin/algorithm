@@ -1,49 +1,30 @@
 import sys
 input = sys.stdin.readline
 
-def dfs(depth, idx):
-    if depth == 6:
-        print(*out)
-        return
-    
-    for i in range(idx, k):
-        out.append(s[i])
-        dfs(depth+1, i+1)
-        out.pop()
+
+def dfs(cnt, start, tlst):
+    if cnt == 6:
+        print(*tlst)
+        return 
+    # 재귀 포인트
+    for i in range(start, k):
+        # cnt = 로또 개수, i는 
+        dfs(cnt+1, i+1, tlst+[s[i]])
+
+
 
 
 while True:
-    arr = list(map(int, input().split()))
-    k = arr[0] 
-    s = arr[1:]
-    #출력용 변수
-    out = []
+    lst = list(map(int, input().split()))
+    
+    if lst[0] == 0:
+        break
 
-    dfs(0,0)
+    k = lst[0]
+    s = lst[1:]
 
-
-    if k == 0:
-        exit()
+    dfs(0, 0, [])
     print()
 
 
-
-
-# itertools의 조합 사용 코드
-# while True:
-#     arr = list(map(int, input().split()))
-#     k = arr[0] 
-#     s = arr[1:]
-
-#     for i in itertools.combinations(s, 6):
-#         print(*i)
-
-#     if k == 0:
-#         exit()
-#     print()
-
-
-
-
-
-
+    

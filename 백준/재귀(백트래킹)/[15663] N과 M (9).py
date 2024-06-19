@@ -1,48 +1,20 @@
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
-
-numbers = sorted(list(map(int,input().split())))
-
-result = []
+lst = sorted(list(map(int, input().split())))
 visited = [False] * n
-
-def dfs():
-    if len(result) == m:
-        print(*result)
+def dfs(s, ans):
+    if len(ans) == m:
+        print(*ans)
         return
     
-    before = 0    
-
+    prev = 0
     for i in range(n):
-        # 방문하지 않은 경우(같은 수 출력 방지) -> visited && 이전 값이랑 다른 경우 (중복 수열 방지) -> before 변수
-        if not visited[i] and before != numbers[i]:
-            result.append(numbers[i])
+        if not visited[i] and prev != lst[i]:
+            prev = lst[i]
             visited[i] = True
-            # 변수 변경
-            before = numbers[i]
-            dfs()
+            dfs(i+1, ans+[lst[i]])
             visited[i] = False
-            result.pop()
-    
-    
 
-
-        
-    
-
-dfs()
-
-
-
-"""
-if len(result) == m:
-            print(*result)
-        else:
-            for j in range(i+1, len(numbers)):
-                result.append(numbers[j])
-                if len(result) == m:
-                    print(*result)
-                    result.pop()
-        
-        result.pop()
-    print(result)
-"""
+dfs(0, [])

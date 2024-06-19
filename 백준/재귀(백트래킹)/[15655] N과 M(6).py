@@ -1,15 +1,21 @@
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
-nums = sorted(list(map(int, input().split())))
-temp = []
-
-def dfs(start):
-    if len(temp) == m:
-        print(*temp)
+lst = sorted(list(map(int, input().split())))
+visited = [False] * n
+def dfs(s, tlst):
+    if len(tlst) == m:
+        print(*tlst)
         return
-    for i in range(start, n):
-        if nums[i] not in temp:
-            temp.append(nums[i])
-            dfs(i + 1)
-            temp.pop()
+    
+    prev = 0
+    for i in range(s, n):
+        if prev != lst[i] and not visited[i]:
+            prev = lst[i]
+            visited[i] = True
+            dfs(i, tlst+[lst[i]])
+            visited[i] = False
 
-dfs(0)
+dfs(0, [])
+

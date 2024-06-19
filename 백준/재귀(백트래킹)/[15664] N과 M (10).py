@@ -3,26 +3,24 @@ input = sys.stdin.readline
 
 n, m = map(int, input().split())
 
-num_list = sorted(list(map(int, input().split())))
-
-temp = []
-
+lst = sorted(list(map(int, input().split())))
 visited = [False] * n
 
-def dfs(start):
-    if len(temp) == m:
-        print(*temp)
-        return 
+def dfs(s, ans):
+    if len(ans) == m:
+        print(*ans)
+        return
     
-    remember_num = 0
-    for i in range(start, n):
-        if not visited[i] and remember_num != num_list[i]:
-            visited[i] = True
-            temp.append(num_list[i])
-            remember_num = num_list[i]
-            dfs(i + 1)
-            visited[i] = False
-            temp.pop()
+    prev = 0    
+    for j in range(s, n):
+        if prev != lst[j] and not visited[j]:
+            prev = lst[j]
+            visited[j] = True
+            dfs(j+1, ans + [lst[j]])
+            visited[j] = False
 
-dfs(0)
+dfs(0, [])
+
+# for i in range(n):
+#     dfs(i, [])
 

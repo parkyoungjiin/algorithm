@@ -1,30 +1,29 @@
 import sys
 input = sys.stdin.readline
 
-
-def dfs(cnt, start, tlst):
-    if cnt == 6:
+def dfs(start):
+    global tlst
+    if len(tlst) == 6:
         print(*tlst)
-        return 
-    # 재귀 포인트
-    for i in range(start, k):
-        # cnt = 로또 개수, i는 
-        dfs(cnt+1, i+1, tlst+[s[i]])
-
-
-
-
-while True:
-    lst = list(map(int, input().split()))
+        return
     
-    if lst[0] == 0:
+    for i in range(start, len(s)):
+        tlst.append(s[i])
+        dfs(i+1)
+        tlst.pop()
+        
+    
+tlst = []
+while True:
+    tcase = list(map(int,input().split()))
+    
+    k, s = tcase[0], tcase[1:]
+    
+    if k == 0:
         break
 
-    k = lst[0]
-    s = lst[1:]
-
-    dfs(0, 0, [])
+    dfs(0)
     print()
-
+    
 
     

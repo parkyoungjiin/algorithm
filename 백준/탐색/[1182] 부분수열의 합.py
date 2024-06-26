@@ -1,25 +1,32 @@
 import sys
+
 input = sys.stdin.readline
 
 n, s = map(int, input().split())
 
-num = list(map(int,input().split()))
-cnt = 0
+num_lst = list(map(int, input().split()))
+tlst = []
+ans = 0
+def dfs(start):
+    global ans
 
-def dfs(idx, sum):
-    global cnt
-
-    if idx >= n:
-        return
-    
-    sum += num[idx]
-    if sum == s:
-        cnt += 1
-    
-    dfs(idx+1, sum)
-    dfs(idx+1,sum-num[idx])
+    if sum(tlst) == s and len(tlst) > 0:
+       ans += 1 
 
 
-dfs(0,0)
-print(cnt)
+    for i in range(start, n):
+        tlst.append(num_lst[i])
+        dfs(i+1)
+        tlst.pop()
 
+dfs(0)
+print(ans)    
+
+
+
+
+
+# for i in range(n+1):
+#     for j in range(i-1):
+#         if sum(num_lst[j:i]) == s:
+#             count += 1

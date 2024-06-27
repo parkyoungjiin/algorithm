@@ -1,24 +1,24 @@
 import sys
+from collections import deque
 input = sys.stdin.readline
-left = list(input())
-right = []
 
-tc = int(input())
+left_lst = deque(list(input().rstrip()))
+right_lst = deque()
 
+n = int(input())
 
-for _ in range(tc):
-    command = list(input().split())
-    if command[0] == 'L' and left:
-        right.append(left.pop())
-    elif command[0] == 'D' and right:
-        left.append(right.pop())
-    elif command[0] == 'B' and left:
-        left.pop()
+for _ in range(n):
+    command = input().split()
+    
+    if command[0] == 'L' and len(left_lst) != 0:
+        t = left_lst.pop()
+        right_lst.appendleft(t)
+    elif command[0] == 'D' and len(right_lst) != 0:
+        t = right_lst.popleft()
+        left_lst.append(t)
+    elif command[0] == 'B' and len(left_lst) != 0:
+        left_lst.pop()
     elif command[0] == 'P':
-        left.append(command[1])
+        left_lst.append(command[1])
 
-answer = left + right[::-1]
-print(''.join(answer))
-        
-
-            
+print("".join(list(left_lst)+list(right_lst)))

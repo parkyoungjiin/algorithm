@@ -1,30 +1,21 @@
 import sys
 input = sys.stdin.readline
 
+t = int(input())
 
-check = [0] * 1000001
-# 소수 = 1
-check[0] = 1
-check[1] = 1
+# 에라토스테네스의 체 구하기
+prime_arr = [True for _ in range(1000001)]
 
+for i in range(2, int(1000000 ** 0.5)):
+    if prime_arr[i]:
+        for j in range(i*2, 1000001, i): #i를 제외한 배수 False 처리(소수가 아닌 것을 처리)
+            prime_arr[j] = False
 
-prime = []
-count = 0
-for i in range(2, 1000001):
-    if check[i] == 0:
-        prime.append(i)
-        for j in range(2*i, 1000001, i):
-            check[j] = 1
-
-tc = int(input())
-
-for t in range(tc):
-    n = int(input())
-    for i in prime:
-        if i >= n:
-            break
-
-        if not check[n-1] and i <= n-i:
+for _ in range(t):
+    num = int(input())
+    count = 0
+    for k in range(2, num//2+1):
+        if prime_arr[k] and prime_arr[num-k]:
             count += 1
-    
-
+    print(count)
+        

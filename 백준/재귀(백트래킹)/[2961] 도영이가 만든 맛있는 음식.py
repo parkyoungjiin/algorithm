@@ -4,6 +4,29 @@ input = sys.stdin.readline
 
 n = int(input())
 
+def dfs(depth, start):
+    global result
+    # 개수 만큼 뽑은 경우
+    if depth == lenght:
+        # 신맛(곱)
+        bitter = 1
+        # 쓴맛(합)
+        sour = 0
+        for i in arr:
+            bitter *= i[0]
+            sour += i[1]
+
+            result = min(abs(bitter - sour), result)
+        return
+
+    
+    # 재귀
+    for i in range(start, n):
+        arr.append(ingredient[i])
+        dfs(depth + 1, start + 1)
+        arr.pop()
+
+
 # 재료
 ingredient = []
 
@@ -11,33 +34,15 @@ for _ in range(n):
     s, b = map(int, input().split())
     ingredient.append([s,b])
 
-com = []
-answer = 1000001
-for i in range(1, n+1):
-    com.append(combinations(ingredient,i))
+# 재료 임시 보관 배열
+arr = []
 
-for c in com:
-    # combinations 내용물을 확인하려면 재출력.
-    for comb in c:
-        print(comb)
-        sour = 1
-        bitter = 0
+result = float('inf')
 
-        for e in comb:
-            sour *= e[0]
-            bitter += e[1]
-        
-        answer = min(abs(sour - bitter), answer)
 
-print(answer)
-# for i in range(n):
-#     for j in range(i):
-#         sour.append(ingredient[i][0] * ingredient[j][0])
+for i in range(1, n+1):  # i = 1~n개 (뽑는 개수)
+    lenght = i
+    dfs(0, 0)
 
-# answer = 1000001
-# for i in range(n):
-#     for s in sour:
-#         if ingredient[i][1] - s > 0:
-#             answer = min(ingredient[i][1] - s, answer)
-
-# print(answer)
+print(result)
+# 재귀

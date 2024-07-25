@@ -1,4 +1,3 @@
-from itertools import combinations
 import sys
 input = sys.stdin.readline
 
@@ -15,8 +14,8 @@ def dfs(depth, start):
         for i in arr:
             bitter *= i[0]
             sour += i[1]
-
-            result = min(abs(bitter - sour), result)
+            if abs(bitter - sour) < result:
+                result = abs(bitter - sour)
         return
 
     
@@ -25,8 +24,6 @@ def dfs(depth, start):
         arr.append(ingredient[i])
         dfs(depth + 1, start + 1)
         arr.pop()
-
-
 # 재료
 ingredient = []
 
@@ -36,9 +33,7 @@ for _ in range(n):
 
 # 재료 임시 보관 배열
 arr = []
-
 result = float('inf')
-
 
 for i in range(1, n+1):  # i = 1~n개 (뽑는 개수)
     lenght = i

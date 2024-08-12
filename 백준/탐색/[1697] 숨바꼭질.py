@@ -1,34 +1,32 @@
 from collections import deque
-n, k = map(int,input().split())
+import sys
 
-array = [0] * 100001
+input = sys.stdin.readline
 
 def bfs():
-    q = deque()
-    # 시작점 넣고 시작.
-    q.append(n)
-
+    global cnt
+    
     while q:
         x = q.popleft()
-        # x가 동생 위치k와 같다면 종료.
+        # 종료조건
         if x == k:
-            print(array[x])
-            break
-        # 3방향 탐색
-        for j in (x-1, x+1, x*2):
-            # 방문X, 범위 내
-            if 0<=j<=100000 and not array[j]: # 0
-                array[j] = array[x] + 1
-                q.append(j)
+            print(dist[x])
+            return
+
+        for nx in (x*2, x-1, x+1):
+            if 0<=nx<=MAX and not dist[nx]:
+                dist[nx] = dist[x] + 1
+                q.append(nx)      
+
+n, k = map(int, input().split())
+
+q = deque()
+
+q.append(n)
+# cnt = 0
+MAX = 10 ** 5
+# 시간초 계산 리스트
+dist = [0] * (MAX+1)
+
 
 bfs()
-
-
-
-
-
-
-
-
-
-
